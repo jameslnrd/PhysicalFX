@@ -11,7 +11,7 @@ public class attractorModel extends MaxObject implements Executable
 	int attrListStart = 0;
 
 	int simRate = 100;
-	int frameRate = 25;
+	int frameRate = 20;
 
 	private MaxClock clock;
 	PhysicalModel mdl;
@@ -40,13 +40,13 @@ public class attractorModel extends MaxObject implements Executable
 	  
  		 for (int i = 0; i< nbParticles; i++){
    	  		 mdl.addMass3D("m_"+i, 1, new Vect3D(Math.random()* 200 - 100, Math.random()* 200 - 100, 0), new Vect3D(0,0,0));
- 	 	   mdl.addBubble3D("bub_"+i, 500, 0.01, 0.1, "m_"+i, "gnd");
+ 	 	   mdl.addBubble3D("bub_"+i, 500, 0.1, 0.1, "m_"+i, "gnd");
  		 }
 
  		 for (int i = 0; i< nbParticles; i++){
    			 for (int j = 0; j< nbParticles; j++){
       			if(i != j)
-        			mdl.addContact3D("cnt_"+i+"_"+j, 20, 0.001, 0.001, "m_"+i, "m_"+j);
+        			mdl.addContact3D("cnt_"+i+"_"+j, 20, 0.05, 0.05, "m_"+i, "m_"+j);
 					mdl.addLinkToSubset("cnt_"+i+"_"+j, "contacts");
     		 }
   		}
@@ -69,7 +69,7 @@ public class attractorModel extends MaxObject implements Executable
 	private void addAttractor(float posX, float posY){
    		mdl.addGround3D("at_"+ atIndex,new Vect3D(posX, posY,0));
    		for (int i = 0; i< nbParticles; i++){
-     		mdl.addAttractor3D("atl_"+atIndex+"_"+i,40, 550, "m_"+i, "at_"+atIndex);
+     		mdl.addAttractor3D("atl_"+atIndex+"_"+i,40, 8000, "m_"+i, "at_"+atIndex);
 		}
    		atIndex++;
    		nbAttr++;  
@@ -162,15 +162,7 @@ public class attractorModel extends MaxObject implements Executable
     	mdl.setMatPosAt(attrListStart, new Vect3D((list[0].getFloat()-0.5)*1000,(list[1].getFloat()-0.5)*1000, 0));
 	}
 
-
     
 }
-
-
-
-
-
-
-
 
 
